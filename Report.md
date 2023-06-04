@@ -135,6 +135,43 @@ What we did in this section:
 
 We can see that according to the prediction, we managed to divide the crescent-shaped data into two categories.
 
+### Normalize Data:
+
+1. Import the necessary libraries:
+
+   - `pandas` is imported as `pd` for data manipulation and analysis.
+   - `stopwords` and `WordNetLemmatizer` are imported from `nltk.corpus` and `nltk.stem` respectively for text preprocessing.
+   - `word_tokenize` is imported from `nltk.tokenize` for tokenizing text.
+   - `LabelEncoder` is imported from `sklearn.preprocessing` for encoding categorical labels.
+2. Load the dataset:
+
+   - The code reads a CSV file named 'imdb_dataset.csv' using `pd.read_csv` and assigns it to the variable `df`.
+3. Initialize lemmatizer and stopwords:
+
+   - The code creates an instance of `WordNetLemmatizer()` and assigns it to the variable `lemmatizer`.
+   - The code sets the English stopwords using `stopwords.words('english')` and assigns them to the variable `stop_words`.
+4. Define the `clean_text` function:
+
+   - The function takes a text input as a parameter.
+   - It removes HTML tags using regular expressions (`re.sub('<.*?>', '', text)`).
+   - It removes all characters except letters and spaces using regular expressions (`re.sub('[^a-zA-Z\s]', '', text)`).
+   - It converts the text to lowercase (`text = text.lower()`).
+   - It tokenizes the text using `word_tokenize` and assigns the result to the variable `tokens`.
+   - It removes stopwords and lemmatizes the remaining words using a list comprehension (`[lemmatizer.lemmatize(word) for word in tokens if word not in stop_words]`).
+   - It joins the cleaned tokens back into a string using `' '.join(...)` and assigns the result to the variable `cleaned_text`.
+   - It returns the cleaned text.
+5. Apply the cleaning function to the 'review' column:
+
+   - The code applies the `clean_text` function to each element in the 'review' column of the DataFrame `df` using the `apply` method (`df['review'].apply(clean_text)`).
+   - The cleaned text is assigned back to the 'review' column.
+6. Encode the 'sentiment' column:
+
+   - The code creates an instance of `LabelEncoder()` and assigns it to the variable `le`.
+   - The `LabelEncoder` is used to transform the categorical labels in the 'sentiment' column of `df` into numerical labels (`df['sentiment'] = le.fit_transform(df['sentiment'])`).
+7. Display the first few rows of the DataFrame:
+
+   - The code displays the first few rows of the DataFrame `df` using the `head()` method.
+
 ### Answers to the questions asked:
 
 1. **Text Preprocessing:** Text data is unstructured and can't be used directly for machine learning models. So, it needs to be preprocessed and transformed into a structured format. Here, the TF-IDF (Term Frequency-Inverse Document Frequency) method is used. TF-IDF is a statistical measure that evaluates how relevant a word is to a document in a collection of documents. This is done by multiplying two metrics: how many times a word appears in a document, and the inverse document frequency of the word across a set of documents. It has many uses, most importantly in automated text analysis, and is very useful for scoring words in machine learning algorithms for Natural Language Processing (NLP).
@@ -421,7 +458,7 @@ The leaky ReLU activation also shows good performance. The training loss decreas
 
 In comparison, the tanh and leaky ReLU activations performed significantly better than the sigmoid activation. However, the tanh function gave slightly better results in this case. It's important to note though that the best choice of activation function can depend on the specific task and network architecture.
 
-**3.5. Batch Size:**
+### **3.5. Batch Size:**
 
 Why we should use batch?
 
@@ -467,7 +504,7 @@ Train F1: 0.9054765927840176
 Test F1: 0.8943648144512075
 ```
 
-**Batch size = 256:** 
+**Batch size = 256:**
 
 ```
 Finished Training
