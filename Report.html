@@ -1,0 +1,486 @@
+<h1 id="analisys-of-imdb-comments-by-using-ai">Analisys of imdb comments by using AI</h1>
+<h2 id="1-completing-the-incomplete-parts-of-the-neural-network">1. Completing the incomplete parts of the neural network</h2>
+<h3 id="1-some-utilities-and-dataset-for-part-2">1. Some utilities and dataset for Part 2</h3>
+<p>for the first part my code does:</p>
+<ol>
+<li><p>Importing the necessary libraries:</p>
+<ul>
+<li>numpy for numerical computations</li>
+<li>matplotlib.pyplot for plotting</li>
+<li>make_moons from sklearn.datasets to generate a synthetic dataset with two interleaving half circles.</li>
+</ul>
+</li>
+<li><p>Generating and plotting the data:</p>
+<ul>
+<li>The <code>make_moons</code> function is used to generate a synthetic dataset with 2000 samples and some level of noise.</li>
+<li>The <code>plot_data</code> function is defined to plot the generated data points.</li>
+</ul>
+</li>
+<li><p>Setting up the plot and displaying the data:</p>
+<ul>
+<li>x_min, x_max, y_min, y_max are defined to set the limits of the plot.</li>
+<li>A figure and axes are created using <code>plt.subplots</code>.</li>
+<li>The plot limits are set using <code>ax.set_xlim</code> and <code>ax.set_ylim</code>.</li>
+<li>The <code>plot_data</code> function is called to plot the generated data points.</li>
+<li>Finally, <code>plt.show</code> is called to display the plot.</li>
+</ul>
+</li>
+<li><p>Defining the neural network layers:</p>
+<ul>
+<li>Three layer classes are defined: <code>Linear</code>, <code>ReLU</code>, and <code>Sigmoid</code>.</li>
+<li><code>Linear</code> represents a linear layer with weights and biases. It has methods for forward pass, backward pass (computing gradients), and weight updates (step method).</li>
+<li><code>ReLU</code> represents the rectified linear unit activation function. It has methods for forward pass and backward pass, but the step method doesn&#39;t do anything.</li>
+<li><code>Sigmoid</code> represents the sigmoid activation function. It has methods for forward pass and backward pass, but the step method doesn&#39;t do anything.</li>
+</ul>
+</li>
+<li><p>Defining the model:</p>
+<ul>
+<li>The <code>Sequential</code> class represents the neural network model. It takes any number of layer objects as arguments.</li>
+<li>The class has methods for forward pass, backward pass, weight updates, and training.</li>
+<li>The forward method applies the forward pass sequentially through the layers.</li>
+<li>The backward method applies the backward pass (backpropagation) sequentially through the layers.</li>
+<li>The step method updates the weights and biases sequentially through the layers.</li>
+<li>The train method trains the model by iterating over the specified number of epochs. It calculates the loss, performs backpropagation, and updates the weights and biases.</li>
+</ul>
+</li>
+<li><p>Instantiating the model:</p>
+<ul>
+<li>An instance of the <code>Sequential</code> class is created and initialized with the layers: <code>Linear(2, 64)</code>, <code>ReLU()</code>, <code>Linear(64, 1)</code>, and <code>Sigmoid()</code>.</li>
+</ul>
+</li>
+<li><p>Reshaping the target variable:</p>
+<ul>
+<li>The target variable <code>Y</code> is reshaped to be a 2D array. This is required for compatibility with the model during training.</li>
+</ul>
+</li>
+<li><p>Training the model:</p>
+<ul>
+<li>The <code>train</code> method of the model is called with the input features <code>X</code>, target <code>Y</code>, number of epochs, and learning rate. It trains the model, computes the loss for each epoch, performs backpropagation, and updates the weights and biases.</li>
+</ul>
+</li>
+<li><p>Plotting the loss history:</p>
+<ul>
+<li>The loss values stored in the <code>history</code> list are plotted using <code>plt.plot</code> to visualize the training progress over epochs. The loss values represent the decrease in loss over the training process.</li>
+</ul>
+</li>
+</ol>
+<p>The <strong>Result</strong>:</p>
+<p><img src="image/Report/1685880739915.png" alt="1685880739915"></p>
+<pre><code>Epoch <span class="hljs-number">1</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">0.6796521716940078</span>
+Epoch <span class="hljs-number">2</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">10.355442366663532</span>
+Epoch <span class="hljs-number">3</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">7.046582489932066</span>
+Epoch <span class="hljs-number">4</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">4.2933642666815475</span>
+Epoch <span class="hljs-number">5</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">3.5678390888806106</span>
+Epoch <span class="hljs-number">6</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">2.8997185596081763</span>
+Epoch <span class="hljs-number">7</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">3.0658460014994473</span>
+Epoch <span class="hljs-number">8</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">2.6852947187844327</span>
+Epoch <span class="hljs-number">9</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">3.4443730419279777</span>
+Epoch <span class="hljs-number">10</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">3.2125750490332012</span>
+Epoch <span class="hljs-number">11</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">2.6047703412725594</span>
+Epoch <span class="hljs-number">12</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">2.7230004503119902</span>
+Epoch <span class="hljs-number">13</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">3.1420594364300687</span>
+Epoch <span class="hljs-number">14</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">3.1921920754180504</span>
+Epoch <span class="hljs-number">15</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">2.775890485209574</span>
+Epoch <span class="hljs-number">16</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">4.833194196662208</span>
+Epoch <span class="hljs-number">17</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">3.4226327387814703</span>
+Epoch <span class="hljs-number">18</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">2.9025788494440787</span>
+Epoch <span class="hljs-number">19</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">2.517889355931653</span>
+Epoch <span class="hljs-number">20</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">3.1961797600243287</span>
+Epoch <span class="hljs-number">21</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">2.509808125230894</span>
+Epoch <span class="hljs-number">22</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">2.806564325620446</span>
+Epoch <span class="hljs-number">23</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">2.752606498117768</span>
+Epoch <span class="hljs-number">24</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">2.686527545263174</span>
+Epoch <span class="hljs-number">25</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">3.335884297252371</span>...
+
+Epoch <span class="hljs-number">97</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">0.002273292765219811</span>
+Epoch <span class="hljs-number">98</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">0.002239258591005477</span>
+Epoch <span class="hljs-number">99</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">0.002206668995733403</span>
+Epoch <span class="hljs-number">100</span>/<span class="hljs-number">100</span>, <span class="hljs-string">Loss:</span> <span class="hljs-number">0.002175275437748777</span>
+</code></pre><p><img src="image/Report/1685881049631.png" alt="1685881049631"></p>
+<p>The Y-axis of the graph represents the value of the loss function, and the X-axis represents the number of epochs, which is the number of times the entire dataset is passed forward and backward through the neural network.</p>
+<p>Initially, at epoch 0, the model is just initialized with random weights, and it&#39;s likely not providing very accurate predictions, so the loss is high (10 in this case). As the model starts learning from the data, the loss starts to decrease, which means the model&#39;s predictions are getting closer to the actual values.</p>
+<p>By epoch 100, the loss has decreased to near zero, suggesting that the model&#39;s predictions are very close to the actual values.</p>
+<h2 id="2-review-and-pre-processing-of-textual-data">2. review and pre-processing of textual data</h2>
+<p>In this part, we went to the implementation of the second part.
+What we did in this section:</p>
+<ol>
+<li><p>Define the ReLU and Sigmoid layers:</p>
+<ul>
+<li><code>MyReLU</code> class implements the ReLU activation function. It has methods for forward pass (ReLU operation) and backward pass (gradient computation).</li>
+<li><code>MySigmoid</code> class implements the sigmoid activation function. It has methods for forward pass (sigmoid operation) and backward pass (gradient computation).</li>
+</ul>
+</li>
+<li><p>Define the Linear layer:</p>
+<ul>
+<li><code>MyLinear</code> class represents a linear layer with weights and biases. It has methods for forward pass (matrix multiplication with weights and addition of biases) and backward pass (gradient computation).</li>
+</ul>
+</li>
+<li><p>Define the Sequential model:</p>
+<ul>
+<li><code>Sequential</code> class represents the neural network model. It takes a list of layers as input.</li>
+<li>It has methods for forward pass, loss computation, backward pass, and weight updates.</li>
+</ul>
+</li>
+<li><p>Instantiate the model and define the architecture:</p>
+<ul>
+<li>An instance of the <code>Sequential</code> class is created with the specified layers (Linear, ReLU, Linear, Sigmoid).</li>
+</ul>
+</li>
+<li><p>Define the training loop:</p>
+<ul>
+<li>Set the learning rate, number of epochs, and create an empty list to store the losses.</li>
+<li>Iterate over the specified number of epochs.</li>
+<li>For each epoch, iterate over the data points (x, y) in the dataset.</li>
+<li>Perform a forward pass, compute the loss, store the loss in the list.</li>
+<li>Perform backward pass, update the weights and biases using the learning rate.</li>
+</ul>
+</li>
+<li><p>Plot the loss values:</p>
+<ul>
+<li>Plot the loss values stored in the list using matplotlib.</li>
+</ul>
+</li>
+<li><p>Plot the decision boundary:</p>
+<ul>
+<li>This part of the code is missing (<code>plot_decision_boundary</code> is not defined), so it cannot be explained without additional context.</li>
+</ul>
+</li>
+</ol>
+<h3 id="-the-result-"><strong>The Result:</strong></h3>
+<p><img src="image/Report/1685881558296.png" alt="1685881558296"></p>
+<p><img src="image/Report/1685881564865.png" alt="1685881564865"></p>
+<p>We can see that according to the prediction, we managed to divide the crescent-shaped data into two categories.</p>
+<h3 id="answers-to-the-questions-asked-">Answers to the questions asked:</h3>
+<ol>
+<li><p><strong>Text Preprocessing:</strong> Text data is unstructured and can&#39;t be used directly for machine learning models. So, it needs to be preprocessed and transformed into a structured format. Here, the TF-IDF (Term Frequency-Inverse Document Frequency) method is used. TF-IDF is a statistical measure that evaluates how relevant a word is to a document in a collection of documents. This is done by multiplying two metrics: how many times a word appears in a document, and the inverse document frequency of the word across a set of documents. It has many uses, most importantly in automated text analysis, and is very useful for scoring words in machine learning algorithms for Natural Language Processing (NLP).</p>
+<p>The <code>TfidfVectorizer</code> from the <code>sklearn.feature_extraction.text</code> library is used to transform the text data into its TF-IDF representation. The <code>max_features</code> parameter is set between 3000 and 7000, which means that the vectorizer will only consider the top <code>max_features</code> ordered by term frequency across the corpus.</p>
+</li>
+<li><strong>Normalization:</strong> Normalization of text data is an important step that ensures that the text data is represented in a consistent manner. This can include tasks such as converting all text to lower case, removing punctuation, converting numbers into their word equivalents, removing stop words (common words that don&#39;t carry much information), etc. You are also advised to convert words to their roots (stemming) or to their base forms (lemmatization).</li>
+<li><strong>Encoding Label:</strong> The sentiment column data must be converted to numerical data. This is necessary because machine learning models work with numerical data. This can be done using label encoding, which involves converting each value in a column to a number.</li>
+</ol>
+<p>After preprocessing the text data, a neural network is trained on this data. The provided code defines classes for different types of layers (Linear, ReLU, Sigmoid), a Sequential class for a model composed of these layers, and a training loop. You are required to fill in the methods in these classes with the appropriate code.</p>
+<ol>
+<li><strong>Stemming and Lemmatization:</strong> Both stemming and lemmatization are used to reduce inflectional forms of a word to a common base form. Stemming usually refers to a crude heuristic process that chops off the ends of words in the hope of achieving this goal correctly most of the time. On the other hand, lemmatization usually refers to doing things properly with the use of a vocabulary and morphological analysis of words, normally aiming to remove inflectional endings only and to return the base or dictionary form of a word, which is known as the lemma.</li>
+<li><strong>Checking and displaying a random positive and negative comment in the train dataset:</strong> This involves randomly selecting a positive and a negative comment from the train dataset and displaying them. This can be done using the <code>random</code> library in Python.</li>
+<li><strong>Calculating the number of comments in each category for the train and test datasets and drawing a bar graph for them:</strong> This involves calculating the number of positive and negative comments in the train and test datasets and plotting these numbers in a bar graph. This can be done using the <code>matplotlib</code> library in Python.</li>
+<li><strong>Checking that the value of each feature is between 0 and 1 before giving input to the neural network:</strong> Normalizing the input features to be in the range [0, 1] is generally good practice. This is because most common activation functions of the network&#39;s neurons such as tanh or sigmoid are defined on</li>
+<li><p><strong>TF-IDF:</strong> TF-IDF stands for Term Frequency-Inverse Document Frequency. It&#39;s a numerical statistic that reflects how important a word is to a document in a corpus. It works by increasing proportionally to the number of times a word appears in the document, but is offset by the number of documents in the corpus that contain the word. This helps to adjust for the fact that some words appear more frequently in general. The <code>TfidfVectorizer</code> class in sklearn converts a collection of raw documents to a matrix of TF-IDF features. It&#39;s equivalent to <code>CountVectorizer</code> followed by <code>TfidfTransformer</code>.</p>
+<p>The <code>max_features</code> argument is used to limit the number of features (vocabulary size). Only the top <code>max_features</code> ordered by term frequency across the corpus will be kept. If set between 3000 and 7000, it will keep the top 3000-7000 most frequent terms.</p>
+</li>
+<li><p><strong>Text Preprocessing:</strong> This often includes steps like:</p>
+<ul>
+<li><strong>Removing frequent words or stop words:</strong> These are words that don&#39;t contain important meaning and are usually removed from texts. They include words like &quot;is&quot;, &quot;at&quot;, &quot;which&quot;, and &quot;on&quot;.</li>
+<li><strong>Removing meaningless expressions:</strong> These are usually HTML tags or other markup that is not useful for understanding the sentiment of a text.</li>
+<li><strong>Removing unimportant characters:</strong> This can include punctuation, special characters, or escape characters like <code>\n</code> and <code>\r</code>.</li>
+<li><strong>Stemming and Lemmatization:</strong> Both are processes of reducing inflected (or sometimes derived) words to their root form. Stemming is a little more aggressive. It chops off the ends of words based on common prefixes and suffixes, which can sometimes result in words that are not actual words. Lemmatization is more conservative and only reduces words to their base form (called a lemma) when it can be determined with the use of a vocabulary and morphological analysis of words. This means that it is generally more accurate, but is also slower.</li>
+<li><strong>Converting text to lower case:</strong> This can help to ensure that the same word in different cases is recognized as the same word.</li>
+</ul>
+</li>
+<li><strong>Label Encoding:</strong> The sentiment column data must be converted to numerical data. You can use label encoding for this. Label encoding involves assigning each unique value in a column to a number. For example, you might encode &quot;Positive&quot; as 1 and &quot;Negative&quot; as 0.</li>
+<li><strong>Training and Test Data:</strong> It&#39;s important to apply the same preprocessing steps to both the training and test data. This is because the model learns from the training data, and then is tested on the test data. If the test data is in a different format or uses different conventions, then the model may not perform well.</li>
+</ol>
+<h2 id="3-using-pytorch">3. Using PyTorch</h2>
+<h3 id="3-1-learn-network-">3.1. Learn Network:</h3>
+<p>In this part I do following task:</p>
+<ol>
+<li><p>Importing the necessary libraries:</p>
+<ul>
+<li><code>TfidfVectorizer</code> from <code>sklearn.feature_extraction.text</code> for vectorizing the text data.</li>
+<li><code>train_test_split</code> from <code>sklearn.model_selection</code> for splitting the data into train and test sets.</li>
+<li>Various evaluation metrics from <code>sklearn.metrics</code> for evaluating the performance of the model.</li>
+<li><code>torch</code> and <code>torch.nn</code> for building and training the neural network model.</li>
+<li><code>torch.optim</code> for the optimization algorithm.</li>
+<li><code>TensorDataset</code> and <code>DataLoader</code> from <code>torch.utils.data</code> for creating data loaders.</li>
+</ul>
+</li>
+<li><p>Reading the dataset:</p>
+<ul>
+<li>The code reads a dataset from a CSV file called <code>imdb_dataset.csv</code> using pandas and assigns it to <code>imdb_data</code>.</li>
+</ul>
+</li>
+<li><p>Preprocessing the data:</p>
+<ul>
+<li>The reviews text is vectorized using <code>TfidfVectorizer</code> with a limit of 5000 features. The vectorized text is stored in <code>X</code>.</li>
+<li>The sentiment labels are converted to binary integers (0 for negative, 1 for positive) and stored in <code>y</code>.</li>
+</ul>
+</li>
+<li><p>Splitting the data into train and test sets:</p>
+<ul>
+<li>The data is split into training and testing sets using <code>train_test_split</code> from scikit-learn. The test size is set to 0.2 (20% of the data), and a random state of 42 is used for reproducibility.</li>
+</ul>
+</li>
+<li><p>Converting the training data to PyTorch tensors:</p>
+<ul>
+<li>The training features (<code>X_train</code>) and labels (<code>y_train</code>) are converted to PyTorch tensors (<code>X_train_tensor</code> and <code>y_train_tensor</code>) using <code>torch.from_numpy</code> and <code>float()</code>.</li>
+</ul>
+</li>
+<li><p>Creating a DataLoader:</p>
+<ul>
+<li>The training data is converted into a <code>TensorDataset</code>, and a <code>DataLoader</code> is created to handle batching with a batch size of 16.</li>
+</ul>
+</li>
+<li><p>Defining the network architecture:</p>
+<ul>
+<li>The neural network architecture is defined in the <code>Net</code> class. It consists of three fully connected (linear) layers with ReLU activation between the first two layers and sigmoid activation in the final layer.</li>
+</ul>
+</li>
+<li><p>Creating the network:</p>
+<ul>
+<li>An instance of the <code>Net</code> class is created and assigned to the variable <code>net</code>.</li>
+</ul>
+</li>
+<li><p>Defining the loss function and optimizer:</p>
+<ul>
+<li>Binary Cross Entropy Loss (<code>BCELoss</code>) is used as the loss function.</li>
+<li>Stochastic Gradient Descent (<code>SGD</code>) is used as the optimizer, which optimizes the parameters of the network (<code>net.parameters()</code>) with a learning rate of 0.01.</li>
+</ul>
+</li>
+<li><p>Training the network:</p>
+<ul>
+<li>The network is trained for 10 epochs with a nested loop over the batches in the data loader.</li>
+<li>For each batch, the inputs and labels are obtained.</li>
+<li>The gradients are zeroed with <code>optimizer.zero_grad()</code>.</li>
+<li>The forward pass is performed, the loss is computed, and the backward pass is executed.</li>
+<li>The optimizer is used to update the network&#39;s parameters.</li>
+<li>Running loss is calculated and printed every 2000 mini-batches.</li>
+</ul>
+</li>
+<li><p>Testing the network and evaluating performance:</p>
+<ul>
+<li>The testing data is converted to PyTorch tensors (<code>X_test_tensor</code> and <code>y_test_tensor</code>).</li>
+<li>Predictions are made on the training and testing data using the trained network.</li>
+<li>The predicted probabilities are converted to binary predictions based on a threshold of 0.5.</li>
+<li>Classification metrics including accuracy, recall, precision, and F1-score are calculated and printed using the predicted and true labels for both training and testing sets.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Result:</strong></p>
+<pre><code>[1,  2000] loss: 0.693
+[2,  2000] loss: 0.693
+[3,  2000] loss: 0.692
+[4,  2000] loss: 0.691
+[5,  2000] loss: 0.686
+[6,  2000] loss: 0.668
+[7,  2000] loss: 0.573
+[8,  2000] loss: 0.392
+[9,  2000] loss: 0.306
+[10,  2000] loss: 0.271
+Finished Training
+
+Train Accuracy: 0.903925
+<span class="hljs-keyword">Test </span>Accuracy: 0.8925
+Train Recall: 0.9145333400130254
+<span class="hljs-keyword">Test </span>Recall: 0.9059337170073427
+Train Precision: 0.8952040015692428
+<span class="hljs-keyword">Test </span>Precision: 0.883662408052652
+Train F1: 0.904765444948331
+<span class="hljs-keyword">Test </span>F1: 0.8946594806467417
+</code></pre><h3 id="3-2-network-weighting">3.2. Network weighting</h3>
+<p><strong>Question:</strong> If the initial value of all network weights was zero and you trained the network, what would be the results? (no need to implement)?</p>
+<p><strong>Answer</strong>: Initializing all weights to zero in a neural network is generally not a good idea. Here&#39;s why:</p>
+<ol>
+<li>Symmetry problem: The issue arises from the fact that each neuron in the network will learn the same features during training. Specifically, all neurons in the same layer of the network will be completely symmetric - they will have the same weights and will be updated in the same way during back-propagation. This makes the network less expressive and potentially less effective at learning complex patterns in the data. You might as well have a network with a single neuron in this case.</li>
+<li>Vanishing gradients: If all initial weights are zero, then all the neuron&#39;s activations will be zero, leading to zero gradients. During backpropagation, your gradients will be zero too, and the weights of your network will not get updated. The network will fail to learn anything from the training data.</li>
+<li>Lack of breaking of symmetry: Even with non-linear activation functions like ReLU (which is not zero-centered), the problem still persists. All neurons will still be getting the same updates, and hence, will remain symmetric.</li>
+</ol>
+<p>In general, it&#39;s usually better to initialize weights randomly, as this helps to break symmetry and ensures that different neurons learn different features. Some common methods for weight initialization include Xavier/Glorot and He initialization, which take into account the sizes of the previous layer and the next layer in the network.</p>
+<h3 id="3-3-change-learning-rate-">3.3. Change Learning Rate:</h3>
+<p>Changing the learning rate can have a profound effect on the performance of a neural network. Let&#39;s discuss the expected outcomes if we increase or decrease the learning rate by a factor of 10 from initial learning rate of 0.01.</p>
+<ol>
+<li><p>Higher Learning Rate (0.1):</p>
+<p>A learning rate of 0.1 is quite large for most neural networks. The learning rate is the step size taken when updating the model parameters during training. If this step size is too large, it&#39;s possible that the model will overshoot the optimal solution and continually bounce around, failing to converge to a good solution. This is sometimes called &quot;divergence&quot; because the loss can actually increase over time rather than decrease. In the worst-case scenario, the model might even fail to learn anything at all.</p>
+<p>However, sometimes a higher learning rate can also help to escape from local minima and potentially find better (more global) minima. But these cases are usually more of the exception than the rule. You&#39;ll typically want to lower the learning rate as training progresses, a strategy known as learning rate annealing, to fine-tune the parameters as they approach the optimal solution.</p>
+</li>
+<li><p>Lower Learning Rate (0.001):</p>
+<p>On the other hand, a smaller learning rate means taking smaller steps during optimization. This will slow down the learning process - the model will take longer to converge, but it might be able to find a more precise minimum (since it&#39;s less likely to overshoot it). However, if the learning rate is set too low, the model might get stuck in a poor local minimum or take an inordinate amount of time to converge.</p>
+<p>Lower learning rates are often used when fine-tuning models, as we want to make smaller, more precise updates to the already trained parameters.</p>
+</li>
+</ol>
+<p>Given these factors, it&#39;s typically best to find a balance. The learning rate shouldn&#39;t be so high that it causes the model to diverge or miss the optimal solution, but it also shouldn&#39;t be so low that learning becomes extremely slow or gets stuck in poor local minima.</p>
+<p><strong>Learning Rate = 0.1:</strong></p>
+<pre><code>[1,  2000] loss: 0.639
+[2,  2000] loss: 0.332
+[3,  2000] loss: 0.274
+[4,  2000] loss: 0.251
+[5,  2000] loss: 0.236
+[6,  2000] loss: 0.224
+[7,  2000] loss: 0.214
+[8,  2000] loss: 0.204
+[9,  2000] loss: 0.194
+[10,  2000] loss: 0.184
+Finished Training
+
+Train Accuracy: 0.8988
+<span class="hljs-keyword">Test </span>Accuracy: 0.8657
+Train Recall: 0.9834677621361655
+<span class="hljs-keyword">Test </span>Recall: 0.9599126810875174
+Train Precision: 0.8407640584179193
+<span class="hljs-keyword">Test </span>Precision: 0.8091334894613583
+Train F1: 0.9065342876933733
+<span class="hljs-keyword">Test </span>F1: 0.878097485703912
+</code></pre><p><strong>Learning Rate = 0.001:</strong></p>
+<pre><code>[1,  2000] loss: 0.694
+[2,  2000] loss: 0.693
+[3,  2000] loss: 0.693
+[4,  2000] loss: 0.693
+[5,  2000] loss: 0.693
+[6,  2000] loss: 0.693
+[7,  2000] loss: 0.693
+[8,  2000] loss: 0.693
+[9,  2000] loss: 0.693
+[10,  2000] loss: 0.693
+Finished Training
+
+Train Accuracy: 0.5067
+<span class="hljs-keyword">Test </span>Accuracy: 0.5014
+Train Recall: 0.013626571815039326
+<span class="hljs-keyword">Test </span>Recall: 0.012304028577098631
+Train Precision: 0.8634920634920635
+<span class="hljs-keyword">Test </span>Precision: 0.8732394366197183
+Train F1: 0.026829749457486684
+<span class="hljs-keyword">Test </span>F1: 0.024266144814090018
+</code></pre><ol>
+<li>Learning Rate = 0.01:
+The model gradually improved its performance over epochs, as we can see from the loss decreasing from 0.693 to 0.271. This shows that the model was learning. The final training accuracy was 90.39% and the test accuracy was 89.25%, which indicates that the model generalized well and didn&#39;t overfit or underfit significantly.</li>
+<li>Learning Rate = 0.1:
+The model learned quickly, which can be seen from the significant drop in loss from the first epoch to the second. The training accuracy was slightly lower than with the 0.01 learning rate (89.88% compared to 90.39%), and the test accuracy dropped more significantly to 86.57%. This could indicate that the model was slightly overfitting (since there&#39;s a larger gap between training and testing accuracy), which may be a result of the larger learning rate causing the model parameters to fluctuate more.</li>
+<li>Learning Rate = 0.001:
+The model didn&#39;t learn effectively, as indicated by the loss staying around 0.693 across all epochs. This resulted in poor training and test accuracy (50.67% and 50.14% respectively), which are barely better than random guessing for a binary classification task. The precision was high (86.34% for training and 87.32% for test) but the recall was very low (1.36% for training and 1.23% for test), leading to very low F1 scores. This indicates that the model was predicting mostly the negative class and rarely the positive class, and when it did predict the positive class, it was usually correct, which is why the precision is high and recall is low. This could be due to the small learning rate causing the model parameters to change too slowly, not allowing the model to learn effectively.</li>
+</ol>
+<p>In summary, a learning rate of 0.01 provided the best balance in this case, allowing the model to learn effectively and generalize well without overfitting or underfitting. The learning rate of 0.1 caused the model to learn quickly but possibly overfit slightly, and the learning rate of 0.001 was too small, causing the model to learn very slowly or not at all.</p>
+<h3 id="3-4-activation-function-">3.4 Activation Function:</h3>
+<ol>
+<li>Changing the activation function in the network: The performance can be measured by modifying the existing code to use the different activation functions (sigmoid, tanh, leaky ReLU) instead of the original ReLU. In Python, these activation functions are <code>torch.sigmoid</code>, <code>torch.tanh</code> and <code>torch.nn.LeakyReLU()</code>. Here&#39;s how to modify the code:</li>
+<li><p>Sigmoid and tanh in hidden layers: Sigmoid and tanh functions have two main problems that can make them less suitable for use in hidden layers:</p>
+<ul>
+<li><strong>Vanishing gradients</strong>: Both the sigmoid and tanh functions squash their input into a very small output range in a non-linear fashion. For inputs with large absolute value, the function saturates at either the high end (1 for sigmoid, +1 for tanh) or the low end (0 for sigmoid, -1 for tanh), which leads to extremely small gradients (derivatives). During backpropagation, this can lead to the so-called &quot;vanishing gradients&quot; problem where the gradients that are backpropagated become so small that the weights in the early layers of the network are hardly updated.</li>
+<li><strong>Non-zero centered</strong>: The output of both functions is always positive (0 to 1 for sigmoid and -1 to +1 for tanh). This can lead to undesirable zigzagging dynamics during gradient descent optimization because the gradients can have consistent signs (always positive or always negative).</li>
+</ul>
+</li>
+<li>Leaky ReLU vs. ReLU: The Rectified Linear Unit (ReLU) activation function is defined as <code>f(x) = max(0, x)</code>, meaning that it replaces all negative input values with 0. This can cause a problem known as &quot;dead neurons,&quot; where some neurons effectively die, i.e., they never activate on any datapoint again, and so the gradients flowing through the neuron are all zero.</li>
+</ol>
+<p><strong>Result:</strong></p>
+<pre><code>Training with sigmoid activation
+[1,  2000] loss: 0.694
+[2,  2000] loss: 0.694
+[3,  2000] loss: 0.694
+[4,  2000] loss: 0.694
+[5,  2000] loss: 0.694
+[6,  2000] loss: 0.694
+[7,  2000] loss: 0.694
+[8,  2000] loss: 0.694
+[9,  2000] loss: 0.694
+[10,  2000] loss: 0.694
+Finished Training
+Train Accuracy: 0.499025
+<span class="hljs-keyword">Test </span>Accuracy: 0.5039
+Train Recall: 1.0
+<span class="hljs-keyword">Test </span>Recall: 1.0
+Train Precision: 0.499025
+<span class="hljs-keyword">Test </span>Precision: 0.5039
+Train F1: 0.6657994363002618
+<span class="hljs-keyword">Test </span>F1: 0.6701243433738946
+
+Training with tanh activation
+[1,  2000] loss: 0.693
+[2,  2000] loss: 0.691
+[3,  2000] loss: 0.688
+[4,  2000] loss: 0.675
+[5,  2000] loss: 0.604
+[6,  2000] loss: 0.422
+[7,  2000] loss: 0.318
+[8,  2000] loss: 0.277
+[9,  2000] loss: 0.255
+[10,  2000] loss: 0.241
+Finished Training
+Train Accuracy: 0.91435
+<span class="hljs-keyword">Test </span>Accuracy: 0.8968
+Train Recall: 0.9220980912779921
+<span class="hljs-keyword">Test </span>Recall: 0.9112919230005954
+Train Precision: 0.9077279676480742
+<span class="hljs-keyword">Test </span>Precision: 0.887000193162063
+Train F1: 0.9148566032108951
+<span class="hljs-keyword">Test </span>F1: 0.8989819890368052
+
+Training with leaky_relu activation
+[1,  2000] loss: 0.693
+[2,  2000] loss: 0.693
+[3,  2000] loss: 0.692
+[4,  2000] loss: 0.690
+[5,  2000] loss: 0.684
+[6,  2000] loss: 0.655
+[7,  2000] loss: 0.527
+[8,  2000] loss: 0.362
+[9,  2000] loss: 0.295
+[10,  2000] loss: 0.265
+Finished Training
+Train Accuracy: 0.90545
+<span class="hljs-keyword">Test </span>Accuracy: 0.8931
+Train Recall: 0.9164370522518912
+<span class="hljs-keyword">Test </span>Recall: 0.9087120460408811
+Train Precision: 0.89640809526143
+<span class="hljs-keyword">Test </span>Precision: 0.8826137239784118
+Train F1: 0.9063119302417757
+<span class="hljs-keyword">Test </span>F1: 0.8954727681627066
+</code></pre><p><strong>Sigmoid Activation:</strong></p>
+<p>The training loss is very high and doesn&#39;t seem to reduce much over the epochs. The model&#39;s performance is poor both on training and test sets, with accuracy approximately at 50%. This is equivalent to random guessing in a binary classification task. It seems like the model has failed to learn meaningful representations of the data, possibly because of the limitations of the sigmoid function, like its tendency to cause vanishing gradients.</p>
+<p><strong>Tanh Activation:</strong></p>
+<p>The model with tanh activation function seems to perform much better. The training loss decreases considerably over the epochs, suggesting that the model is learning. The accuracy for both the training set and the test set is around 91% and 89.68% respectively, indicating a good model performance. The recall, precision, and F1 score are also high, suggesting that the model does well on both positive and negative classes.</p>
+<p><strong>Leaky ReLU Activation:</strong></p>
+<p>The leaky ReLU activation also shows good performance. The training loss decreases over the epochs and the accuracy on both training and test sets is high, around 90%. The recall, precision, and F1 scores are also good. Compared to regular ReLU, leaky ReLU allows small negative values when the input is less than zero, which can help to keep the neurons from &quot;dying&quot;, i.e., always outputting zero.</p>
+<p>In comparison, the tanh and leaky ReLU activations performed significantly better than the sigmoid activation. However, the tanh function gave slightly better results in this case. It&#39;s important to note though that the best choice of activation function can depend on the specific task and network architecture.</p>
+<p><strong>3.5. Batch Size:</strong></p>
+<p>Why we should use batch?</p>
+<ol>
+<li><strong>Memory constraints</strong>: The size of datasets can often be larger than what can be held in memory (or on a GPU if you&#39;re using one). By using smaller batches, you can train on your entire dataset by just loading parts of it at a time.</li>
+<li><strong>Faster convergence</strong>: Training with batches often leads to faster convergence of the model. It approximates the gradient of the entire dataset by computing the gradient of a batch, which is usually sufficient to make a good step in the right direction.</li>
+<li><strong>Noise can lead to better generalization</strong>: Because each batch is an approximation of the true data distribution, the noise in the gradient estimate can actually have a regularizing effect, leading to better generalization performance on the test set.</li>
+</ol>
+<p>Regarding batch sizes, both very small and very large batch sizes have advantages and disadvantages:</p>
+<ul>
+<li><p><strong>Very small batch sizes</strong> (including a batch size of 1, also known as online or stochastic gradient descent):</p>
+<ul>
+<li>Advantages: Each update is very fast. The model can start improving before having seen all the data. The noise in the update process can sometimes help escape from local minima.</li>
+<li>Disadvantages: The direction of the gradient may not accurately represent the true gradient, leading to inefficient progress. Requires more iterations to go through the entire dataset once (an &quot;epoch&quot;).</li>
+</ul>
+</li>
+<li><p><strong>Very large batch sizes</strong> (up to the size of the dataset, also known as batch gradient descent):</p>
+<ul>
+<li>Advantages: The direction of the gradient is a better estimate of the true gradient. You can utilize the full power of hardware accelerators like GPUs which perform well with large matrix operations.</li>
+<li>Disadvantages: Each update is computationally expensive and slow. Training may require more epochs because fewer updates are made. Large batch sizes often result in models that generalize less well to unseen data.</li>
+</ul>
+</li>
+</ul>
+<p>Result for diffrent batch size:</p>
+<p><strong>Batch size  = 16:</strong></p>
+<pre><code>[1,  2000] loss: 0.693
+[2,  2000] loss: 0.693
+[3,  2000] loss: 0.692
+[4,  2000] loss: 0.690
+[5,  2000] loss: 0.686
+[6,  2000] loss: 0.665
+[7,  2000] loss: 0.562
+[8,  2000] loss: 0.384
+[9,  2000] loss: 0.303
+[10,  2000] loss: 0.269
+Finished Training
+
+Train Accuracy: 0.9049
+<span class="hljs-keyword">Test </span>Accuracy: 0.8924
+Train Recall: 0.912779920845649
+<span class="hljs-keyword">Test </span>Recall: 0.903949196269101
+Train Precision: 0.8982892077108909
+<span class="hljs-keyword">Test </span>Precision: 0.8849815426462017
+Train F1: 0.9054765927840176
+<span class="hljs-keyword">Test </span>F1: 0.8943648144512075
+</code></pre><p><strong>Batch size = 256:</strong> </p>
+<pre><code>Finished Training
+Train Accuracy: 0.5483
+<span class="hljs-keyword">Test </span>Accuracy: 0.5432
+Train Recall: 0.12604578928911378
+<span class="hljs-keyword">Test </span>Recall: 0.12581861480452472
+Train Precision: 0.8015291494106404
+<span class="hljs-keyword">Test </span>Precision: 0.795483061480552
+Train F1: 0.21783549783549783
+<span class="hljs-keyword">Test </span>F1: 0.21727210418094586
+</code></pre><p>This means Batch size = 16 is better for this situation.</p>
